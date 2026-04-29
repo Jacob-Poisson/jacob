@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Jacob Poisson | Creative Media Portfolio</title>
+    <style>
+        /* ------------- RESET & BASE STYLES ------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Animation Classes for Sections */
+        .section-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .section-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ------------- NAVIGATION ------------- */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: opacity 0.2s;
+        }
+        
+        .logo a:hover {
+            opacity: 0.85;
+        }
+        
+        .logo-img {
+            height: 36px;
+            width: auto;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #3b82f6;
+        }
+
+        /* ------------- HERO SECTION ------------- */
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 10% 20%, #1a1a2e, #0a0a0a);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin: 1.5rem 0;
+        }
+
+        .cert-badge, .edu-badge {
+            display: inline-block;
+            background-color: #1e293b;
+            border-left: 3px solid #3b82f6;
+            padding: 0.5rem 1rem;
+            margin-right: 1rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .edu-badge {
+            border-left-color: #10b981;
+            background-color: #0f172a;
+        }
+
+        /* ------------- PHOTOGRAPHY GRID ------------- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 2rem;
+        }
+
+        .photo-card {
+            background-color: #121212;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ------------- VIDEO PROJECTS ------------- */
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .video-item {
+            background: #111;
+            border-radius: 20px;
+            padding: 1.8rem;
+            border: 1px solid #222;
+            transition: transform 0.2s;
+        }
+        
+        .video-item:hover {
+            transform: translateX(6px);
+            border-left: 3px solid #3b82f6;
+        }
+
+        .video-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 0.75rem;
+        }
+
+        .video-desc {
+            color: #bbb;
+            margin-bottom: 1rem;
+        }
+
+        .video-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .role-tag {
+            background: #1e293b;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Video Button Styles */
+        .watch-btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s, transform 0.1s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .watch-btn:hover {
+            background-color: #2563eb;
+            transform: scale(0.98);
+        }
+
+        /* ------------- DESIGN SECTION ------------- */
+        .design-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .design-card {
+            background: #111;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #222;
+            transition: all 0.3s;
+        }
+        
+        .design-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+        }
+
+        /* ------------- FOOTER ------------- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+            color: #6b7280;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* ------------- MODAL (LIGHTBOX) ------------- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* ------------- RESPONSIVE ------------- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 1.8rem; }
+            section { padding: 50px 0; }
+            .nav-links { gap: 1rem; justify-content: center; }
+            .nav-container { flex-direction: column; text-align: center; }
+            .photo-grid { gap: 16px; grid-template-columns: 1fr; }
+            .photo-card img { height: 220px; }
+            .video-title { font-size: 1.3rem; }
+            .hero p { font-size: 1rem; }
+            .cert-badge, .edu-badge { font-size: 0.75rem; padding: 0.3rem 0.8rem; }
+            .logo a { font-size: 1.2rem; }
+            .logo-img { height: 28px; }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container nav-container">
+        <div class="logo">
+            <a href="#">
+                <img src="JPLogo.jpg" alt="Jacob Poisson Logo" class="logo-img">
+                Jacob Poisson
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" data-section="home" class="active">Home</a></li>
+            <li><a href="#" data-section="design">Design</a></li>
+            <li><a href="#" data-section="photography">Photography</a></li>
+            <li><a href="#" data-section="video">Video</a></li>
+            <li><a href="#" data-section="audio">Audio</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <!-- HOME SECTION -->
+    <section id="home" class="hero">
+        <div class="container hero-content section-content" id="homeContent">
+            <h1>Jacob Poisson</h1>
+            <h3 style="color:#3b82f6; margin-bottom:0.5rem;">Filmmaker · Photographer · Graphic Designer · Sound Designer</h3>
+            <p>
+                As a passionate and versatile media creator, my goal is to leverage my skills in photography, filmmaking, sound design, and graphic design to craft compelling visual stories that resonate with diverse audiences. With a strong foundation in creative media production and a dedication to continual learning, I aspire to contribute meaningfully to the dynamic fields of film and media.
+            </p>
+            <p>
+                Whether pursuing opportunities in the professional world or advancing my education at a top-tier film school, I aim to refine my technical expertise, broaden my artistic perspective, and collaborate with like-minded individuals to push the boundaries of storytelling.
+            </p>
+            <div style="margin-top: 2rem;">
+                <span class="cert-badge">📸 Adobe Photoshop Certified</span>
+                <span class="cert-badge">🎬 Adobe Premiere Pro Certified</span>
+            </div>
+            <div style="margin-top: 1rem;">
+                <span class="edu-badge">🏫 Middle Bucks Institute of Technology</span>
+                <span class="edu-badge">🎓 Central Bucks South High School (2025)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESIGN SECTION -->
+    <section id="design" style="display: none;">
+        <div class="container section-content" id="designContent">
+            <h2>Design & Graphics</h2>
+            <p style="margin-bottom: 2rem;">Logos, layouts, web concepts, and visual identities that reflect cinematic storytelling.</p>
+            <div class="design-showcase">
+                <div class="design-card">
+                    <div style="font-size: 3rem;">🎨</div>
+                    <h3 style="margin-top: 1rem;">Web Concepts</h3>
+                    <p>Modern, responsive layouts with a focus on user experience and visual impact.</p>
+                </div>
+                <div class="design-card">
+                    <div style="font-size: 3rem;">🖌️</div>
+                    <h3 style="margin-top: 1rem;">Brand Identity</h3>
+                    <p>Logo design and cohesive branding for digital and print.</p>
+                </div>
+                <div class="design-card">
+                    <div style="font-size: 3rem;">📱</div>
+                    <h3 style="margin-top: 1rem;">UI/UX</h3>
+                    <p>Interface design that prioritizes clarity and emotional resonance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTOGRAPHY SECTION -->
+    <section id="photography" style="display: none;">
+        <div class="container section-content" id="photoContent">
+            <h2>Photography</h2>
+            <div class="photo-grid">
+                <div class="photo-card"><img src="Photography/f45bef3fc9e2ada301894b956b25ff68.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/87763216acd81b7011225384d6dcc0e8.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/4148688b63112ec2c01b704e9a4761fc.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/1a2436805cf3e3f73a980aa8d2ae31da.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/a859b91ca0c813bb12ce1c071573ba20.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/d58a85ae5543a5eb18bb0a0af9d462a2.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/38745372d40f4016be7321863e7a5a7a.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/6cbb082359e5e2a9daf6c59e60123c42.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/d145d3149dde372eacc702e4888cedb5.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/8bbe07d30e4e1093ed4b6cf39dcf87e7.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/dd72861759ea53c14d962145b9d348bf.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/8bfd54974fcabc1a1d6daaf006a2ec28.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/6a19f0141e75ddd722ce6b8221a5951a.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/20a80afc91710db2dbc1dbd2f6e49a0a.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/071804dd2cf7fb924d430f09b3d8a9e8.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/2961d6641b619d6d63e6d4a626860ee2.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/816f9c24ea74a7062374a1dfa780d3bb.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/1e555170cc5920170bb2e473412ae3fa.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/445adccd050e772cfa6d2d4acc433e0c.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/da42edd70143a4e02e0540a38d9c188e.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/f4b4537ed084385a22e9ea7117106f06.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/9292f6c142522dcbf7e94b77792fb48a.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/d34df230e9d5fcf19a989f5d0a2b034b.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/714e9ff6cc8e55cbd4bb8c055243e1ce.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/83392cba683be65519f8421d6e6c6c32.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/865524d36253f7b9334b3f5d4bd952ee.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/49fadf1810ad55d4c38f4b237fb7a9a6.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/83aa3f4f9219092adae2f758d51eae83.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/8b795416761b08519dfacf8f63733cf3.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/5d46838abd0299c7f07a2fcfb0d46c8b.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/6514ffaa2afb4611900129b1d90b5264.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/9152d19650a1b14c24eb1e408ac3167f.jpg" alt="Gallery"></div>
+                <div class="photo-card"><img src="Photography/496aa133a2be5dcff12f756c46096cc3.jpg" alt="Gallery"></div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO SECTION -->
+    <section id="video" style="display: none;">
+        <div class="container section-content" id="videoContent">
+            <h2>Film & Video</h2>
+            <div class="video-list">
+                <div class="video-item">
+                    <div class="video-title">Simulacrum</div>
+                    <div class="video-desc">A short psychological thriller — written & directed for the ten‑day film challenge.</div>
+                    <div class="video-roles"><span class="role-tag">Writer</span><span class="role-tag">Director</span></div>
+                    <a href="https://drive.google.com/file/d/1aIaVRfcITv1xYuSqHBvLAZZ6LPYppGns/view" target="_blank" class="watch-btn">▶ Watch Now</a>
+                </div>
+                <div class="video-item">
+                    <div class="video-title">Unraveled</div>
+                    <div class="video-desc">Production assistant during a four‑day shoot (Summer 2024). Currently in post‑production, submitting to festivals starting February 2025.</div>
+                    <div class="video-roles"><span class="role-tag">Production Assistant</span></div>
+                    <a href="https://yalefried.com/unraveled-short-film" target="_blank" class="watch-btn">▶ Watch Now</a>
+                </div>
+                <div class="video-item">
+                    <div class="video-title">Drum Short</div>
+                    <div class="video-desc">Fast‑paced rhythmic narrative. I co‑conceived the concept, served as Assistant Director, acted, and assisted in editing.</div>
+                    <div class="video-roles"><span class="role-tag">Co‑Creator</span><span class="role-tag">Assistant Director</span><span class="role-tag">Actor</span><span class="role-tag">Editor</span></div>
+                </div>
+                <div class="video-item">
+                    <div class="video-title">Mobility and Flexibility</div>
+                    <div class="video-desc">Promotional introduction video for the sports therapy program — entirely edited by me.</div>
+                    <div class="video-roles"><span class="role-tag">Editor</span></div>
+                </div>
+                <div class="video-item">
+                    <div class="video-title">Glimpse</div>
+                    <div class="video-desc">Narrative short where I handled on‑location audio recording and served as assistant editor.</div>
+                    <div class="video-roles"><span class="role-tag">Audio Recordist</span><span class="role-tag">Assistant Editor</span></div>
+                    <a href="https://drive.google.com/file/d/1zAem3tyXprrD9SdiEW8ErOHARsL9K3yn/view" target="_blank" class="watch-btn">▶ Watch Now</a>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-title">The Putty Trials</div>
+                    <div class="video-desc">2025 ten‑day film challenge. I co‑starred, co‑created the concept, recorded audio for the final scene, and handled sound creation & editing.</div>
+                    <div class="video-roles"><span class="role-tag">Co‑Star</span><span class="role-tag">Concept Creator</span><span class="role-tag">Sound Design</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUDIO SECTION -->
+    <section id="audio" style="display: none;">
+        <div class="container section-content" id="audioContent">
+            <h2>Sound & Audio</h2>
+            <p style="margin-bottom: 2rem;">Sound creation, field recording, foley, and original compositions for film.</p>
+            <div class="design-showcase">
+                <div class="design-card">
+                    <div style="font-size: 2.5rem;">🎧</div>
+                    <h3>Sound Design</h3>
+                    <p>Original soundscapes and atmospheric layers for narrative shorts.</p>
+                </div>
+                <div class="design-card">
+                    <div style="font-size: 2.5rem;">🎛️</div>
+                    <h3>Dialogue & ADR</h3>
+                    <p>Clean dialogue editing, noise reduction, and ADR supervision.</p>
+                </div>
+                <div class="design-card">
+                    <div style="font-size: 2.5rem;">🔊</div>
+                    <h3>Foley & Field</h3>
+                    <p>Custom foley recording and high‑quality location sound.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 Jacob Poisson — Creative Media Portfolio</p>
+    </div>
+</footer>
+
+<!-- Lightbox modal -->
+<div id="imageModal" class="modal">
+    <img id="modalImage" src="" alt="Full size">
+</div>
+
+<script>
+    // ---------- ANIMATION & NAVIGATION LOGIC ----------
+    const sections = {
+        home: document.getElementById('home'),
+        design: document.getElementById('design'),
+        photography: document.getElementById('photography'),
+        video: document.getElementById('video'),
+        audio: document.getElementById('audio')
+    };
+    
+    // Map content divs inside each section for animation
+    const contentMap = {
+        home: document.getElementById('homeContent'),
+        design: document.getElementById('designContent'),
+        photography: document.getElementById('photoContent'),
+        video: document.getElementById('videoContent'),
+        audio: document.getElementById('audioContent')
+    };
+
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    function animateSectionIn(sectionId) {
+        const contentDiv = contentMap[sectionId];
+        if (contentDiv) {
+            // Remove visible class to reset, then force reflow, then add back
+            contentDiv.classList.remove('visible');
+            setTimeout(() => {
+                contentDiv.classList.add('visible');
+            }, 20);
+        }
+    }
+
+    function showSection(sectionId) {
+        // Hide all sections
+        Object.values(sections).forEach(section => {
+            if (section) section.style.display = 'none';
+        });
+        // Show selected section
+        if (sections[sectionId]) {
+            sections[sectionId].style.display = 'block';
+            animateSectionIn(sectionId);
+        }
+        
+        // Update active class on nav
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-section') === sectionId) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Smooth scroll to top when switching sections on mobile
+        if (window.innerWidth <= 768) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const sectionId = link.getAttribute('data-section');
+            if (sectionId) showSection(sectionId);
+        });
+    });
+
+    // Show home by default and trigger its animation
+    showSection('home');
+
+    // ---------- PHOTOGRAPHY LIGHTBOX ----------
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const allImages = document.querySelectorAll('.photo-card img');
+
+    allImages.forEach(img => {
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            modal.style.display = 'flex';
+            modalImg.src = img.src;
+        });
+    });
+
+    modal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    modalImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+</script>
+</body>
+</html>
